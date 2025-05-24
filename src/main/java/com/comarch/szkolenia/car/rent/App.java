@@ -6,5 +6,6 @@ public class App {
     public static void main(String[] args) {
         Core.getInstance().start();
         System.out.println("conflict - master");
+        System.out.println("feature/conflict - zmiana");
     }
 }
