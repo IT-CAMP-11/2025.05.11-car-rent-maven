@@ -1,7 +1,6 @@
 package com.comarch.szkolenia.car.rent.database;
 
 import com.comarch.szkolenia.car.rent.model.User;
-import com.comarch.szkolenia.car.rent.model.Vehicle;
 import lombok.Getter;
 
 import java.io.*;

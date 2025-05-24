@@ -6,11 +6,6 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-//@Builder
-//@EqualsAndHashCode
-//@ToString
-//@RequiredArgsConstructor
-//@Data
 
 public class User {
     private String login;
