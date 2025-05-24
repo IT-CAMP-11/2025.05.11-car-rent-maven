@@ -29,6 +29,6 @@ public class Bus extends Vehicle {
 
     @Override
     public String convertToDatabaseLine() {
-        return "Bus;" + super.convertToDatabaseLine() + ";" + this.seats;
+        return super.convertToDatabaseLine() + ";" + this.seats;
     }
 }

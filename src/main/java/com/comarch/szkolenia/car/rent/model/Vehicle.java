@@ -38,7 +38,7 @@ public class Vehicle {
     }
 
     public String convertToDatabaseLine() {
-        return String.join(";", this.brand, this.model, this.year+"",
+        return String.join(";", this.getClass().getSimpleName(), this.brand, this.model, this.year+"",
                 this.price+"", this.rent+"", this.plate);
     }
 }

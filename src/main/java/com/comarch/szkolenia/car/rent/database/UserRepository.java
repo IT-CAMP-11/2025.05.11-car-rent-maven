@@ -12,19 +12,16 @@ public class UserRepository {
     private final Map<String, User> users = new HashMap<>();
     @Getter
     private final static UserRepository instance = new UserRepository();
+    private final String DB_FILE = "users.txt";
 
     private UserRepository() {
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("users.txt"));
-
+        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(DB_FILE))) {
             String line;
             while ((line = bufferedReader.readLine()) != null && !line.isEmpty()) {
                 String[] parameter = line.split(";");
                 User user = new User(parameter[0], parameter[1], User.Role.valueOf(parameter[2]));
                 this.users.put(user.getLogin(), user);
             }
-
-            bufferedReader.close();
         } catch (IOException e) {
             System.out.println("baza nie dziala !!");
         }
@@ -35,15 +32,11 @@ public class UserRepository {
     }
 
     public void persist() {
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("users.txt"));
-
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(DB_FILE))) {
             for(User u : this.users.values()) {
                 writer.write(u.convertToDatabaseLine());
                 writer.newLine();
             }
-
-            writer.close();
         } catch (IOException e) {
             System.out.println("Nie dziala zapisywanie !!");
         }

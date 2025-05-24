@@ -29,6 +29,6 @@ public class Motorcycle extends Vehicle {
 
     @Override
     public String convertToDatabaseLine() {
-        return "Motorcycle;" + super.convertToDatabaseLine() + ";" + this.additionalSeat;
+        return super.convertToDatabaseLine() + ";" + this.additionalSeat;
     }
 }
