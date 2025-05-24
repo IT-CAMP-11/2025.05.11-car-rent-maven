@@ -4,9 +4,7 @@ import com.comarch.szkolenia.car.rent.model.User;
 import com.comarch.szkolenia.car.rent.model.Vehicle;
 import lombok.Getter;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,10 +14,20 @@ public class UserRepository {
     private final static UserRepository instance = new UserRepository();
 
     private UserRepository() {
-        this.users.put("admin", new User("admin",
-                "73e448ae60c818c23ede44ee35be02b3", User.Role.ADMIN));
-        this.users.put("janusz", new User("janusz",
-                "49194de393288e58756d8200c5c7b4e7", User.Role.USER));
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("users.txt"));
+
+            String line;
+            while ((line = bufferedReader.readLine()) != null && !line.isEmpty()) {
+                String[] parameter = line.split(";");
+                User user = new User(parameter[0], parameter[1], User.Role.valueOf(parameter[2]));
+                this.users.put(user.getLogin(), user);
+            }
+
+            bufferedReader.close();
+        } catch (IOException e) {
+            System.out.println("baza nie dziala !!");
+        }
     }
 
     public User findUser(String login) {
