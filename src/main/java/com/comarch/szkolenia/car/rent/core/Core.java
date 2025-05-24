@@ -1,6 +1,7 @@
 package com.comarch.szkolenia.car.rent.core;
 
 import com.comarch.szkolenia.car.rent.authentication.Authenticator;
+import com.comarch.szkolenia.car.rent.database.UserRepository;
 import com.comarch.szkolenia.car.rent.database.VehicleRepository;
 import com.comarch.szkolenia.car.rent.exceptions.FailedAuthenticationException;
 import com.comarch.szkolenia.car.rent.exceptions.RentVehicleException;
@@ -12,6 +13,7 @@ public class Core {
     private final VehicleRepository vehicleRepository = VehicleRepository.getInstance();
     private final Authenticator authenticator = Authenticator.getInstance();
     private final GUI gui = GUI.getInstance();
+    private final UserRepository userRepository = UserRepository.getInstance();
     @Getter
     private final static Core instance = new Core();
 
@@ -21,19 +23,19 @@ public class Core {
     public void start() {
         boolean run = authenticateUser();
         while(run) {
-            switch(gui.showMenuAndReadChoose()) {
+            switch(this.gui.showMenuAndReadChoose()) {
                 case "1":
-                    gui.showVehicles();
+                    this.gui.showVehicles();
                     break;
                 case "2":
                     if(Authenticator.currentUserRole == User.Role.ADMIN) {
                         addVehicle();
                     } else {
                         try {
-                            vehicleRepository.rentVehicle(gui.readPlate());
-                            gui.showResult(true);
+                            this.vehicleRepository.rentVehicle(this.gui.readPlate());
+                            this.gui.showResult(true);
                         } catch (RentVehicleException e) {
-                            gui.showResult(false);
+                            this.gui.showResult(false);
                         }
                     }
                     break;
@@ -42,9 +44,11 @@ public class Core {
                     break;
                 case "4":
                     run = false;
+                    this.vehicleRepository.persist();
+                    this.userRepository.persist();
                     break;
                 default:
-                    gui.showWrongChoose();
+                    this.gui.showWrongChoose();
                     break;
             }
         }

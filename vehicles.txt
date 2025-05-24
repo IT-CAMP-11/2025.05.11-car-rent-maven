@@ -1,0 +1,10 @@
+Bus;Mercedess;1000;2000;500.0;false;KR66;50
+Bus;Urbino;2000;2015;700.0;false;KR77;55
+Bus;Mercedess;2000;2020;900.0;false;KR88;62
+Motorcycle;Honda;Jakas;2020;200.0;false;KR999;true
+Car;Kia;Ceed;2021;320.0;false;KR2
+Car;Toyota;Corolla;2020;300.0;false;KR1
+Car;Fiat;Panda;2015;100.0;false;KR4
+Car;BMW;3;2019;350.0;false;KR3
+Car;Audi;A5;2020;400.0;true;KR123
+Car;Honda;Civic;2022;400.0;false;KR5

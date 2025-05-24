@@ -36,4 +36,9 @@ public class Vehicle {
                 .append(this.isRent() ? " Not available" : " Available")
                 .toString();
     }
+
+    public String convertToDatabaseLine() {
+        return String.join(";", this.brand, this.model, this.year+"",
+                this.price+"", this.rent+"", this.plate);
+    }
 }

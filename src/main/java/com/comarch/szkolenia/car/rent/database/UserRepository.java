@@ -1,8 +1,12 @@
 package com.comarch.szkolenia.car.rent.database;
 
 import com.comarch.szkolenia.car.rent.model.User;
+import com.comarch.szkolenia.car.rent.model.Vehicle;
 import lombok.Getter;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,5 +24,20 @@ public class UserRepository {
 
     public User findUser(String login) {
         return this.users.get(login);
+    }
+
+    public void persist() {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("users.txt"));
+
+            for(User u : this.users.values()) {
+                writer.write(u.convertToDatabaseLine());
+                writer.newLine();
+            }
+
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Nie dziala zapisywanie !!");
+        }
     }
 }
