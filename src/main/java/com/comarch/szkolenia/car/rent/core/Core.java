@@ -8,19 +8,22 @@ import com.comarch.szkolenia.car.rent.exceptions.FailedAuthenticationException;
 import com.comarch.szkolenia.car.rent.exceptions.RentVehicleException;
 import com.comarch.szkolenia.car.rent.gui.IGUI;
 import com.comarch.szkolenia.car.rent.model.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class Core implements ICore {
-    @Autowired
-    private IVehicleRepository vehicleRepository;
-    @Autowired
-    private IAuthenticator authenticator;
-    @Autowired
-    private IGUI gui;
-    @Autowired
-    private IUserRepository userRepository;
+    private final IVehicleRepository vehicleRepository;
+    //@Autowired
+    private final IAuthenticator authenticator;
+    //@Autowired
+    //@Qualifier("new_gui")
+    private final IGUI gui;
+    //@Autowired
+    private final IUserRepository userRepository;
 
     @Override
     public void start() {
@@ -91,4 +94,10 @@ public class Core implements ICore {
                 break;
         }
     }
+
+    /*@Autowired
+    public void setVehicleRepository(IVehicleRepository vehicleRepository) {
+        System.out.println("Wstrzykuje sie !!");
+        this.vehicleRepository = vehicleRepository;
+    }*/
 }

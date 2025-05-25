@@ -3,7 +3,6 @@ package com.comarch.szkolenia.car.rent.gui;
 import com.comarch.szkolenia.car.rent.model.*;
 import org.springframework.stereotype.Component;
 
-@Component
 public class GUIv4 implements IGUI {
     @Override
     public String showMenuAndReadChoose() {

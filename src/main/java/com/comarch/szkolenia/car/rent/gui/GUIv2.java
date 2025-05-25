@@ -3,15 +3,17 @@ package com.comarch.szkolenia.car.rent.gui;
 import com.comarch.szkolenia.car.rent.authentication.Authenticator;
 import com.comarch.szkolenia.car.rent.database.VehicleRepository;
 import com.comarch.szkolenia.car.rent.model.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
+@Component(value = "new_gui")
+@RequiredArgsConstructor
 public class GUIv2 implements IGUI {
-    private final Scanner scanner = new Scanner(System.in);
-    @Autowired
-    private VehicleRepository vehicleRepository;
+    private final Scanner scanner;
+    private final VehicleRepository vehicleRepository;
 
     @Override
     public String showMenuAndReadChoose() {
