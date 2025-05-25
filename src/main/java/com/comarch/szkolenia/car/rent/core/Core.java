@@ -1,25 +1,28 @@
 package com.comarch.szkolenia.car.rent.core;
 
 import com.comarch.szkolenia.car.rent.authentication.Authenticator;
-import com.comarch.szkolenia.car.rent.database.UserRepository;
-import com.comarch.szkolenia.car.rent.database.VehicleRepository;
+import com.comarch.szkolenia.car.rent.authentication.IAuthenticator;
+import com.comarch.szkolenia.car.rent.database.IUserRepository;
+import com.comarch.szkolenia.car.rent.database.IVehicleRepository;
 import com.comarch.szkolenia.car.rent.exceptions.FailedAuthenticationException;
 import com.comarch.szkolenia.car.rent.exceptions.RentVehicleException;
-import com.comarch.szkolenia.car.rent.gui.GUI;
+import com.comarch.szkolenia.car.rent.gui.IGUI;
 import com.comarch.szkolenia.car.rent.model.User;
-import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public class Core {
-    private final VehicleRepository vehicleRepository = VehicleRepository.getInstance();
-    private final Authenticator authenticator = Authenticator.getInstance();
-    private final GUI gui = GUI.getInstance();
-    private final UserRepository userRepository = UserRepository.getInstance();
-    @Getter
-    private final static Core instance = new Core();
+@Component
+public class Core implements ICore {
+    @Autowired
+    private IVehicleRepository vehicleRepository;
+    @Autowired
+    private IAuthenticator authenticator;
+    @Autowired
+    private IGUI gui;
+    @Autowired
+    private IUserRepository userRepository;
 
-    private Core() {
-    }
-
+    @Override
     public void start() {
         boolean run = authenticateUser();
         while(run) {

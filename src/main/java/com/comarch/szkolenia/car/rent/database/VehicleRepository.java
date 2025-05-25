@@ -5,20 +5,19 @@ import com.comarch.szkolenia.car.rent.model.Bus;
 import com.comarch.szkolenia.car.rent.model.Car;
 import com.comarch.szkolenia.car.rent.model.Motorcycle;
 import com.comarch.szkolenia.car.rent.model.Vehicle;
-import lombok.Getter;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class VehicleRepository {
+@Component
+public class VehicleRepository implements IVehicleRepository {
     private final Map<String, Vehicle> vehicles;
-    @Getter
-    private final static VehicleRepository instance = new VehicleRepository();
     private final String DB_FILE = "vehicles.txt";
 
-    private VehicleRepository() {
+    public VehicleRepository() {
         this.vehicles = new HashMap<>();
 
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(DB_FILE))) {
@@ -53,6 +52,7 @@ public class VehicleRepository {
         }
     }
 
+    @Override
     public void rentVehicle(String plate) {
         Vehicle vehicle = this.vehicles.get(plate);
 
@@ -63,14 +63,17 @@ public class VehicleRepository {
         vehicle.setRent(true);
     }
 
+    @Override
     public void addVehicle(Vehicle vehicle) {
         this.vehicles.put(vehicle.getPlate(), vehicle);
     }
 
+    @Override
     public Collection<Vehicle> getVehicles() {
         return this.vehicles.values();
     }
 
+    @Override
     public void persist() {
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(DB_FILE))) {
             for(Vehicle v : getVehicles()) {

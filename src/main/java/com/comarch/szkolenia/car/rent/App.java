@@ -1,11 +1,15 @@
 package com.comarch.szkolenia.car.rent;
 
-import com.comarch.szkolenia.car.rent.core.Core;
+import com.comarch.szkolenia.car.rent.configuration.AppConfiguration;
+import com.comarch.szkolenia.car.rent.core.ICore;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class App {
     public static void main(String[] args) {
-        Core.getInstance().start();
-        System.out.println("conflict - master");
-        System.out.println("feature/conflict - zmiana");
+        ApplicationContext context =
+                new AnnotationConfigApplicationContext(AppConfiguration.class);
+        ICore core = context.getBean(ICore.class);
+        core.start();
     }
 }

@@ -1,20 +1,21 @@
 package com.comarch.szkolenia.car.rent.gui;
 
 import com.comarch.szkolenia.car.rent.authentication.Authenticator;
-import com.comarch.szkolenia.car.rent.database.IVehicleRepository;
+import com.comarch.szkolenia.car.rent.database.VehicleRepository;
 import com.comarch.szkolenia.car.rent.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
-public class GUI implements IGUI {
+public class GUIv2 implements IGUI {
     private final Scanner scanner = new Scanner(System.in);
     @Autowired
-    private IVehicleRepository vehicleRepository;
+    private VehicleRepository vehicleRepository;
 
     @Override
     public String showMenuAndReadChoose() {
+        System.out.println("uuuuu, fajerwerki !!");
         System.out.println("1. List vehicles");
         System.out.println(Authenticator.currentUserRole == User.Role.ADMIN ?
                 "2. Add vehicle" : "2. Rent vehicle");
